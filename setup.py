@@ -5,7 +5,7 @@ import sys
 try:  
     from pip.req import parse_requirements as requirements
     from pip.download import PipSession
-except ImportError:  
+except Exception as e:
     from pip._internal.download import PipSession
     from pip._internal.req import parse_requirements as requirements
 
