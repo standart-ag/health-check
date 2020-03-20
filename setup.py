@@ -2,14 +2,20 @@
 
 import os
 import sys
-try:  
-    from pip.req import parse_requirements as requirements
-    from pip.download import PipSession
-except Exception as e:
-    from pip._internal.download import PipSession
-    from pip._internal.req import parse_requirements as requirements
-
 from setuptools import setup
+
+try:  
+    from pip._internal.req import parse_requirements as requirements
+except ImportError:
+    from pip.req import parse_requirements as requirements
+try:
+    try:  
+        from pip._internal.download import PipSession
+    except ImportError:
+        from pip.download import PipSession
+except ImportError: # pip version>20.0 in python3.7-slim for docker
+    from pip._internal.network.session import PipSession
+
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
