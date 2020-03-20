@@ -5,9 +5,10 @@ import sys
 
 try:  # pip >= 10
     from pip._internal.download import PipSession
+    from pip._internal.req import parse_requirements as requirements
 except ImportError:  # pip <= 9.0.3
     from pip.download import PipSession
-from pip.req import parse_requirements as requirements
+    from pip.req import parse_requirements as requirements
 from setuptools import setup
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
